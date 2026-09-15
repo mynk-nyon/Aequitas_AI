@@ -33,33 +33,32 @@ export default function AnalyzerView({ content }: { content: string }) {
   };
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Clause Risk & Obligation Matrix</CardTitle>
+    <Card className="border-border/60 bg-card/40 hover:border-primary/40 transition-colors shadow-none rounded-xl">
+      <CardHeader className="flex flex-row items-center justify-between pb-4">
+        <CardTitle className="font-display font-bold">Clause Risk & Obligation Matrix</CardTitle>
         <Button onClick={handleAnalyze} disabled={loading || !content}>
           {loading ? "Auditing..." : "Audit Risks"}
         </Button>
       </CardHeader>
       <CardContent className="space-y-6" aria-live="polite" aria-busy={loading}>
         {data?.findings.map((finding, idx) => (
-          <div key={idx} className="p-4 border border-l-4 rounded-r-lg space-y-2 bg-slate-50"
+          <div key={idx} className="p-5 border border-l-4 rounded-r-lg space-y-2 bg-background/50 border-y-border/60 border-r-border/60"
                style={{ borderLeftColor: finding.severity === 'HIGH' ? '#ef4444' : finding.severity === 'MEDIUM' ? '#f59e0b' : '#3b82f6' }}>
             <div className="flex justify-between items-start">
-              <Badge variant="outline">{finding.category}</Badge>
-              <Badge variant={getSeverityVariant(finding.severity)}>{finding.severity} RISK</Badge>
+              <Badge variant="outline" className="font-mono text-[10px] tracking-wider uppercase border-primary/40 bg-primary/10 text-primary">
+                {finding.category}
+              </Badge>
+              <Badge variant={finding.severity === 'HIGH' ? 'destructive' : 'default'}
+                     className={finding.severity === 'MEDIUM' ? 'bg-amber-500 hover:bg-amber-600' : finding.severity === 'LOW' ? 'bg-blue-500 hover:bg-blue-600' : ''}>
+                {finding.severity} RISK
+              </Badge>
             </div>
-            <div>
-              <p className="font-semibold text-sm mb-1 text-slate-700">Clause Extract:</p>
-              <p className="text-sm bg-white p-2 rounded border font-mono">{finding.clause}</p>
-            </div>
-            <div>
-              <p className="font-semibold text-sm mb-1 text-slate-700">Analysis:</p>
-              <p className="text-sm">{finding.explanation}</p>
-            </div>
+            <p className="font-medium text-foreground text-sm mt-2">{finding.explanation}</p>
+            <p className="text-xs font-mono text-muted-foreground bg-card p-2 rounded-md border border-border/40">"{finding.clause}"</p>
           </div>
         ))}
         {!data && !loading && (
-          <p className="text-slate-500 text-center py-8">Click the button to scan the document for risks.</p>
+          <p className="text-muted-foreground text-sm">Click "Audit Risks" to identify predatory clauses, automatic renewals, and hidden obligations.</p>
         )}
       </CardContent>
     </Card>

@@ -2,15 +2,17 @@ import DashboardView from "@/components/DashboardView";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-50 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto space-y-6">
-        <header className="flex flex-col items-start gap-2">
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Aequitas AI</h1>
-          <p className="text-slate-600">AI for Legal Assistance & Access. Paste a document or select a preset to begin.</p>
+    <main className="min-h-screen p-4 md:p-8 flex flex-col items-center">
+      <div className="w-full max-w-5xl space-y-8">
+        <header className="flex flex-col items-center text-center gap-3 pt-8 pb-4">
+          <h1 className="font-sans text-4xl md:text-5xl font-bold tracking-tight">Aequitas <span className="text-primary">AI</span></h1>
+          <p className="text-muted-foreground text-lg max-w-2xl">
+            AI for Legal Assistance & Access. Paste a document or select a preset to decode complex obligations.
+          </p>
         </header>
         <DashboardView />
       </div>
-      <footer className="max-w-6xl mx-auto mt-12 py-6 border-t text-center text-sm text-slate-500">
+      <footer className="w-full max-w-5xl mt-16 py-8 border-t border-border text-center text-sm text-muted-foreground">
         <p>&copy; {new Date().getFullYear()} Aequitas AI. Built for the AI for Legal Assistance & Access challenge.</p>
       </footer>
     </main>

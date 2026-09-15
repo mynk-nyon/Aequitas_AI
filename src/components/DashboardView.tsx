@@ -34,50 +34,50 @@ export default function DashboardView() {
   return (
     <div className="flex flex-col gap-6">
       <Tabs defaultValue="input">
-        <TabsList className="flex flex-wrap h-auto gap-2 p-2">
-          <TabsTrigger value="input">1. Input Document</TabsTrigger>
-          <TabsTrigger value="simplifier" disabled={!documentContent}>2. Plain-English Decoder</TabsTrigger>
+        <TabsList className="flex flex-wrap h-auto gap-2 p-1.5 bg-card/40 border border-border/60 rounded-xl justify-center mb-6">
+          <TabsTrigger value="input">1. Document Input</TabsTrigger>
+          <TabsTrigger value="simplifier" disabled={!documentContent}>2. Decoder</TabsTrigger>
           <TabsTrigger value="analyzer" disabled={!documentContent}>3. Risk Analyzer</TabsTrigger>
           <TabsTrigger value="comparator" disabled={!documentContent || !isComparing}>4. Comparator</TabsTrigger>
-          <TabsTrigger value="chat" disabled={!documentContent}>5. Q&A Assistant</TabsTrigger>
-          <TabsTrigger value="prep" disabled={!documentContent}>6. Consultation Prep</TabsTrigger>
+          <TabsTrigger value="chat" disabled={!documentContent}>5. Q&A</TabsTrigger>
+          <TabsTrigger value="prep" disabled={!documentContent}>6. Consult Prep</TabsTrigger>
         </TabsList>
 
         <TabsContent value="input">
-          <Card>
-            <CardHeader>
-              <CardTitle>Provide Legal Document</CardTitle>
+          <Card className="border-border/60 bg-card/40 hover:border-primary/40 transition-colors shadow-none rounded-xl">
+            <CardHeader className="pb-4">
+              <CardTitle className="font-display font-bold">Provide Legal Document</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex gap-2 mb-4">
-                <Button variant="outline" onClick={() => handleLoadPreset('lease')}>Preset A: Lease</Button>
-                <Button variant="outline" onClick={() => handleLoadPreset('freelance')}>Preset B: Freelance</Button>
-                <Button variant="outline" onClick={() => handleLoadPreset('saas')}>Preset C: SaaS TOS</Button>
+            <CardContent className="space-y-6">
+              <div className="flex flex-wrap gap-2">
+                <Button variant="outline" className="border-border bg-card/30 text-muted-foreground hover:border-primary/40 hover:text-foreground" onClick={() => handleLoadPreset('lease')}>Preset A: Lease</Button>
+                <Button variant="outline" className="border-border bg-card/30 text-muted-foreground hover:border-primary/40 hover:text-foreground" onClick={() => handleLoadPreset('freelance')}>Preset B: Freelance</Button>
+                <Button variant="outline" className="border-border bg-card/30 text-muted-foreground hover:border-primary/40 hover:text-foreground" onClick={() => handleLoadPreset('saas')}>Preset C: SaaS TOS</Button>
               </div>
               
-              <div className="space-y-2">
-                <label htmlFor="main-doc" className="text-sm font-medium">Main Document (Paste your text here)</label>
+              <div className="space-y-3">
+                <label htmlFor="main-doc" className="text-xs font-mono uppercase tracking-[0.24em] text-primary">Main Document</label>
                 <Textarea 
                   id="main-doc"
-                  className="h-64"
+                  className="h-64 font-mono text-sm leading-relaxed bg-background/50 border-border/60 focus-visible:border-primary"
                   value={documentContent}
                   onChange={handleDocumentChange}
                   placeholder="Paste lease, terms of service, or contract here..."
                 />
               </div>
 
-              <div className="pt-4">
-                <Button variant="ghost" onClick={() => setIsComparing(!isComparing)}>
+              <div className="pt-2">
+                <Button variant="ghost" className="text-muted-foreground hover:text-foreground" onClick={() => setIsComparing(!isComparing)}>
                   {isComparing ? "Remove Comparison" : "+ Add Document to Compare (e.g. V2 or Amendment)"}
                 </Button>
               </div>
 
               {isComparing && (
-                <div className="space-y-2">
-                  <label htmlFor="compare-doc" className="text-sm font-medium">Secondary Document (For comparison)</label>
+                <div className="space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <label htmlFor="compare-doc" className="text-xs font-mono uppercase tracking-[0.24em] text-primary">Secondary Document</label>
                   <Textarea 
                     id="compare-doc"
-                    className="h-64 border-blue-200 focus-visible:ring-blue-500"
+                    className="h-64 font-mono text-sm leading-relaxed bg-background/50 border-primary/30 focus-visible:ring-primary"
                     value={comparisonContent}
                     onChange={handleComparisonChange}
                     placeholder="Paste the new version or amendment here..."

@@ -23,31 +23,31 @@ export default function SimplifierView({ content }: { content: string }) {
   };
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Plain-English Decoder</CardTitle>
+    <Card className="border-border/60 bg-card/40 hover:border-primary/40 transition-colors shadow-none rounded-xl">
+      <CardHeader className="flex flex-row items-center justify-between pb-4">
+        <CardTitle className="font-display font-bold">Plain-English Decoder</CardTitle>
         <Button onClick={handleSimplify} disabled={loading || !content}>
           {loading ? "Decoding..." : "Translate to Plain English"}
         </Button>
       </CardHeader>
       <CardContent className="space-y-6" aria-live="polite" aria-busy={loading}>
         {data?.clauses.map((clause, idx) => (
-          <div key={idx} className="p-4 border rounded-lg space-y-4 bg-slate-50">
+          <div key={idx} className="p-5 border border-border/60 rounded-lg space-y-4 bg-background/50">
             <div>
-              <h4 className="text-sm font-bold text-slate-500 uppercase">Original Legal Text</h4>
-              <p className="text-sm mt-1">{clause.original}</p>
+              <h4 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-1">Original Clause</h4>
+              <p className="text-sm font-mono text-muted-foreground">{clause.original}</p>
             </div>
             <div>
-              <h4 className="text-sm font-bold text-blue-600 uppercase">Plain English Translation</h4>
-              <p className="text-base font-medium mt-1">{clause.simplified}</p>
+              <h4 className="text-xs font-mono uppercase tracking-wider text-primary mb-1">Simplified Meaning</h4>
+              <p className="text-base text-foreground font-medium">{clause.simplified}</p>
             </div>
             {clause.jargon.length > 0 && (
-              <div className="pt-2 border-t">
-                <h4 className="text-sm font-bold text-slate-500 uppercase mb-2">Jargon Defined</h4>
-                <ul className="text-sm space-y-2">
-                  {clause.jargon.map((j, jIdx) => (
-                    <li key={jIdx}>
-                      <strong>{j.term}:</strong> {j.definition}
+              <div className="pt-2 border-t border-border/40">
+                <h4 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-2">Jargon Defined</h4>
+                <ul className="space-y-1">
+                  {clause.jargon.map((j, i) => (
+                    <li key={i} className="text-sm">
+                      <span className="font-semibold text-primary">{j.term}:</span> <span className="text-muted-foreground">{j.definition}</span>
                     </li>
                   ))}
                 </ul>
