@@ -36,7 +36,7 @@ export default function PrepSheetView({ content }: { content: string }) {
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6" aria-live="polite" aria-busy={loading}>
         {data && (
           <div className="print:block space-y-6 p-6 border rounded-lg bg-white">
             <div className="border-b pb-4">

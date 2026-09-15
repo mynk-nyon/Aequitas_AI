@@ -1,8 +1,8 @@
 type ClassValue = ClassArray | ClassDictionary | string | number | null | boolean | undefined;
 interface ClassDictionary {
-  [id: string]: any;
+  [id: string]: unknown;
 }
-interface ClassArray extends Array<ClassValue> {}
+type ClassArray = Array<ClassValue>;
 
 export function cn(...inputs: ClassValue[]): string {
   const classes: string[] = [];

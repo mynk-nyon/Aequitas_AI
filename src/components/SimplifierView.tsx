@@ -30,7 +30,7 @@ export default function SimplifierView({ content }: { content: string }) {
           {loading ? "Decoding..." : "Translate to Plain English"}
         </Button>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6" aria-live="polite" aria-busy={loading}>
         {data?.clauses.map((clause, idx) => (
           <div key={idx} className="p-4 border rounded-lg space-y-4 bg-slate-50">
             <div>

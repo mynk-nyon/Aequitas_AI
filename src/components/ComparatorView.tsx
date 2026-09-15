@@ -40,7 +40,7 @@ export default function ComparatorView({ original, modified }: { original: strin
           {loading ? "Comparing..." : "Find Discrepancies"}
         </Button>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6" aria-live="polite" aria-busy={loading}>
         {!modified && (
           <div className="bg-yellow-50 text-yellow-800 p-4 rounded-md text-sm">
             Please provide a secondary document in the Input tab to enable comparison.

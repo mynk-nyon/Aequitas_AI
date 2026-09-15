@@ -10,6 +10,9 @@ export default function Home() {
         </header>
         <DashboardView />
       </div>
+      <footer className="max-w-6xl mx-auto mt-12 py-6 border-t text-center text-sm text-slate-500">
+        <p>&copy; {new Date().getFullYear()} Aequitas AI. Built for the AI for Legal Assistance & Access challenge.</p>
+      </footer>
     </main>
   );
 }

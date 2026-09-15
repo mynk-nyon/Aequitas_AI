@@ -40,7 +40,7 @@ export default function AnalyzerView({ content }: { content: string }) {
           {loading ? "Auditing..." : "Audit Risks"}
         </Button>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6" aria-live="polite" aria-busy={loading}>
         {data?.findings.map((finding, idx) => (
           <div key={idx} className="p-4 border border-l-4 rounded-r-lg space-y-2 bg-slate-50"
                style={{ borderLeftColor: finding.severity === 'HIGH' ? '#ef4444' : finding.severity === 'MEDIUM' ? '#f59e0b' : '#3b82f6' }}>

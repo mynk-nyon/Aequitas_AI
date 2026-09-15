@@ -37,11 +37,11 @@ export default function ChatView({ content }: { content: string }) {
         <CardTitle>Contextual Q&A Assistant</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 flex flex-col gap-4 overflow-hidden">
-        <div className="flex-1 overflow-y-auto space-y-4 p-2 border rounded-md bg-slate-50">
+        <div className="flex-1 overflow-y-auto space-y-4 p-2 border rounded-md bg-slate-50" aria-live="polite" aria-busy={isLoading}>
           {messages.length === 0 && (
             <p className="text-center text-slate-500 mt-10">
               Ask any question about the provided document. <br/>
-              <em>Example: "What is the penalty if I break the lease early?"</em>
+              <em>Example: &quot;What is the penalty if I break the lease early?&quot;</em>
             </p>
           )}
           {messages.map((m) => (

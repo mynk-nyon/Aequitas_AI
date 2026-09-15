@@ -89,6 +89,13 @@ Aequitas AI operates under a strict **information and accessibility assistance o
 
 ---
 
+## 🧐 Assumptions Made
+- **Reading Level Target:** The plain-english simplifier aims for an 8th-grade reading level, under the assumption that this strikes the best balance between universal comprehension and preserving the core essence of the legal obligation.
+- **Token Limits:** The application assumes documents are roughly under 40,000 characters. We implemented Zod max length bounds to prevent `gemini-1.5-pro` token window overflow and control costs.
+- **Scope:** The assistant is deliberately scoped to informative extraction (what does the text say) rather than prescriptive generation (what should the user do), adhering strictly to non-lawyer constraints.
+
+---
+
 ## ♿ Accessibility Compliance
 
 Aequitas AI emphasizes accessibility first design:
