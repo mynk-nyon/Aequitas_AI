@@ -64,6 +64,7 @@ export default function ChatView({ content }: { content: string }) {
         </div>
         <form onSubmit={handleSubmit} className="flex gap-2">
           <Textarea
+            aria-label="Ask a question"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask a question about the document..."

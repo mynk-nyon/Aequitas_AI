@@ -56,8 +56,9 @@ export default function DashboardView() {
               </div>
               
               <div className="space-y-2">
-                <label className="text-sm font-medium">Main Document (Paste your text here)</label>
+                <label htmlFor="main-doc" className="text-sm font-medium">Main Document (Paste your text here)</label>
                 <Textarea 
+                  id="main-doc"
                   className="h-64"
                   value={documentContent}
                   onChange={handleDocumentChange}
@@ -73,8 +74,9 @@ export default function DashboardView() {
 
               {isComparing && (
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Secondary Document (For comparison)</label>
+                  <label htmlFor="compare-doc" className="text-sm font-medium">Secondary Document (For comparison)</label>
                   <Textarea 
+                    id="compare-doc"
                     className="h-64 border-blue-200 focus-visible:ring-blue-500"
                     value={comparisonContent}
                     onChange={handleComparisonChange}
