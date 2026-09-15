@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.70",
+    "@ai-sdk/react": "^4.0.104",
     "ai": "^7.0.101",
     "dompurify": "^3.4.15",
     "isomorphic-dompurify": "^4.2.0",
