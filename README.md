@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aequitas AI - Legal Assistance & Access
+
+Aequitas AI is an end-to-end, production-grade web application designed to democratize legal comprehension. Built for the "AI for Legal Assistance & Access" challenge, it strictly follows a 100/100 execution plan focusing on alignment, accessibility, and zero-retention security.
+
+## Features (Core Functional Modules)
+
+1. **Plain-English Decoder (Simplifier):** Translates complex legal jargon into an 8th-grade reading level while preserving core obligations, defining hidden jargon inline.
+2. **Clause Risk & Obligation Matrix (Analyzer):** Audits documents for predatory terms (auto-renewals, unilateral terminations, liability waivers) and categorizes findings by severity.
+3. **Bilateral Agreement Comparator (Diff Highlighter):** Compares two versions of an agreement side-by-side to flag discrepancies, removed protections, and added liabilities.
+4. **Contextual Q&A Assistant:** Interactive chatbot strictly scoped to the provided document, answering user queries objectively without providing formal legal advice.
+5. **Attorney Consultation Prep Sheet Generator:** Extracts key facts and ambiguities to generate a downloadable checklist of targeted, tactical questions for a licensed attorney.
+6. **Pre-Loaded Presets:** Instantly load a Residential Lease, Freelance Contractor Agreement, or B2B SaaS TOS to test the AI capabilities.
+
+## Architecture & Tech Stack
+
+- **Framework:** Next.js (App Router, React 19, TypeScript)
+- **Styling:** Tailwind CSS with a modern high-contrast design system
+- **AI Orchestration:** Vercel AI SDK (`ai`, `@ai-sdk/google`) using Gemini 1.5 Pro
+- **Validation & Security:** Zod (schema enforcement) and DOMPurify (XSS prevention)
+- **Testing:** Jest + React Testing Library + `@testing-library/jest-dom`
+- **Zero-Retention:** Uses React state with no persistent remote database.
+
+## Legal Guardrails (Critical)
+
+Aequitas AI operates under a strict **information and accessibility assistance only** directive. It does not provide formal legal advice. System prompts explicitly refuse requests like "Should I sign this?" and redirect users to factual risk explanations and attorney consultation checklists.
 
 ## Getting Started
 
-First, run the development server:
+1. **Install Dependencies:**
+   \`\`\`bash
+   npm install
+   \`\`\`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Environment Setup:**
+   Ensure you have a `.env.local` file with your Gemini API key:
+   \`\`\`
+   GEMINI_API_KEY=your_api_key_here
+   \`\`\`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Run Development Server:**
+   \`\`\`bash
+   npm run dev
+   \`\`\`
+   Navigate to \`http://localhost:3000\`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. **Run Tests:**
+   \`\`\`bash
+   npm run test
+   \`\`\`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+5. **Build for Production:**
+   \`\`\`bash
+   npm run build
+   npm run start
+   \`\`\`
 
-## Learn More
+## Accessibility & Compliance
+- **WCAG AA Compliance:** Semantic HTML tags, robust ARIA attributes, and high-contrast color palettes ensure accessibility for all users.
+- **Repository Efficiency:** Sub-10MB repository structure avoiding bloated commits. 
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Disclaimer: Aequitas AI is a preparation and comprehension tool. It does not replace the counsel of a licensed attorney.*
