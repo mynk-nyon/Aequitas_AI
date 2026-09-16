@@ -9,14 +9,17 @@ import { SimplifiedClause } from "@/types";
 export default function SimplifierView({ content }: { content: string }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<{ clauses: SimplifiedClause[] } | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSimplify = async () => {
     setLoading(true);
+    setError(null);
     try {
       const result = await simplifyText(content);
       setData(result);
-    } catch (err) {
-      console.error(err);
+    } catch (e: any) {
+      console.error(e);
+      setError(e.message || "An error occurred during translation.");
     } finally {
       setLoading(false);
     }
@@ -31,6 +34,11 @@ export default function SimplifierView({ content }: { content: string }) {
         </Button>
       </CardHeader>
       <CardContent className="space-y-6" aria-live="polite" aria-busy={loading}>
+        {error && (
+          <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-md text-red-500 text-sm">
+            <strong className="font-semibold">Error:</strong> {error}
+          </div>
+        )}
         {data?.clauses.map((clause, idx) => (
           <div key={idx} className="p-5 border border-border/60 rounded-lg space-y-4 bg-background/50">
             <div>

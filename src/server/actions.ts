@@ -4,8 +4,6 @@ import { generateObject, generateText } from 'ai';
 import { google } from '@ai-sdk/google';
 import { z } from 'zod';
 
-export const runtime = 'edge';
-
 const LEGAL_GUARDRAIL = `
 CRITICAL INSTRUCTION: You are an AI assistant designed to provide legal information, plain-english translations, and objective analysis of document clauses.
 YOU MUST NEVER PROVIDE FORMAL LEGAL ADVICE. 

@@ -5,19 +5,22 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { analyzeRisks } from "@/server/actions";
-import { RiskFinding } from "@/types";
+import { RiskFinding, AnalyzerResult } from "@/types";
 
 export default function AnalyzerView({ content }: { content: string }) {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<{ findings: RiskFinding[] } | null>(null);
+  const [data, setData] = useState<AnalyzerResult | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleAnalyze = async () => {
     setLoading(true);
+    setError(null);
     try {
       const result = await analyzeRisks(content);
-      setData(result);
-    } catch (err) {
-      console.error(err);
+      setData(result as AnalyzerResult);
+    } catch (e: any) {
+      console.error(e);
+      setError(e.message || "An error occurred during analysis.");
     } finally {
       setLoading(false);
     }
@@ -41,6 +44,11 @@ export default function AnalyzerView({ content }: { content: string }) {
         </Button>
       </CardHeader>
       <CardContent className="space-y-6" aria-live="polite" aria-busy={loading}>
+        {error && (
+          <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-md text-red-500 text-sm">
+            <strong className="font-semibold">Error:</strong> {error}
+          </div>
+        )}
         {data?.findings.map((finding, idx) => (
           <div key={idx} className="p-5 border border-l-4 rounded-r-lg space-y-2 bg-background/50 border-y-border/60 border-r-border/60"
                style={{ borderLeftColor: finding.severity === 'HIGH' ? '#ef4444' : finding.severity === 'MEDIUM' ? '#f59e0b' : '#3b82f6' }}>

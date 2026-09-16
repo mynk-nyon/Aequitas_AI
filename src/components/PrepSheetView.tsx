@@ -7,15 +7,18 @@ import { generatePrepSheet } from "@/server/actions";
 
 export default function PrepSheetView({ content }: { content: string }) {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<{ keyFacts: string[], ambiguities: string[], questionsToAsk: string[] } | null>(null);
+  const [data, setData] = useState<{ keyFacts: string[]; ambiguities: string[]; questionsToAsk: string[] } | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleGenerate = async () => {
     setLoading(true);
+    setError(null);
     try {
       const result = await generatePrepSheet(content);
       setData(result);
-    } catch (err) {
-      console.error(err);
+    } catch (e: any) {
+      console.error(e);
+      setError(e.message || "An error occurred generating the prep sheet.");
     } finally {
       setLoading(false);
     }
@@ -37,6 +40,11 @@ export default function PrepSheetView({ content }: { content: string }) {
         </div>
       </CardHeader>
       <CardContent className="space-y-6" aria-live="polite" aria-busy={loading}>
+        {error && (
+          <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-md text-red-500 text-sm">
+            <strong className="font-semibold">Error:</strong> {error}
+          </div>
+        )}
         {data && (
           <div className="print:block space-y-6 p-6 border rounded-lg bg-white">
             <div className="border-b pb-4">

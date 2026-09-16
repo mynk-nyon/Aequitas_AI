@@ -7,17 +7,20 @@ import { Badge } from "@/components/ui/badge";
 import { compareDocuments } from "@/server/actions";
 import { DiffFinding } from "@/types";
 
-export default function ComparatorView({ original, modified }: { original: string, modified: string }) {
+export default function ComparatorView({ original, modified }: { original: string; modified: string }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<{ discrepancies: DiffFinding[] } | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleCompare = async () => {
     setLoading(true);
+    setError(null);
     try {
       const result = await compareDocuments(original, modified);
       setData(result);
-    } catch (err) {
-      console.error(err);
+    } catch (e: any) {
+      console.error(e);
+      setError(e.message || "An error occurred during comparison.");
     } finally {
       setLoading(false);
     }
@@ -41,6 +44,11 @@ export default function ComparatorView({ original, modified }: { original: strin
         </Button>
       </CardHeader>
       <CardContent className="space-y-6" aria-live="polite" aria-busy={loading}>
+        {error && (
+          <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-md text-red-500 text-sm">
+            <strong className="font-semibold">Error:</strong> {error}
+          </div>
+        )}
         {!modified && (
           <div className="bg-yellow-50 text-yellow-800 p-4 rounded-md text-sm">
             Please provide a secondary document in the Input tab to enable comparison.

@@ -7,25 +7,28 @@ import { Textarea } from "@/components/ui/textarea";
 import { askQuestion } from "@/server/actions";
 
 export default function ChatView({ content }: { content: string }) {
-  const [messages, setMessages] = useState<{ id: string, role: 'user'|'assistant', content: string }[]>([]);
+  const [messages, setMessages] = useState<{ id: string, role: 'user' | 'assistant', content: string }[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input || !content || isLoading) return;
+    if (!input.trim() || !content || isLoading) return;
 
-    const userMessage = { id: Date.now().toString(), role: 'user' as const, content: input };
+    const userMessage = { id: Date.now().toString(), role: 'user' as const, content: input.trim() };
     setMessages(prev => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
+    setError(null);
 
     try {
-      const text = await askQuestion(content, userMessage.content, messages);
-      setMessages(prev => [...prev, { id: (Date.now() + 1).toString(), role: 'assistant', content: text }]);
-    } catch (err) {
-      console.error(err);
-      setMessages(prev => [...prev, { id: (Date.now() + 1).toString(), role: 'assistant', content: 'Sorry, I encountered an error answering your question.' }]);
+      const response = await askQuestion(content, userMessage.content, messages);
+      setMessages(prev => [...prev, { id: (Date.now()+1).toString(), role: 'assistant', content: response }]);
+    } catch (e: any) {
+      console.error(e);
+      setError(e.message || "An error occurred generating response.");
+      setMessages(prev => [...prev, { id: (Date.now()+1).toString(), role: 'assistant', content: "Sorry, I encountered an error. Please try again." }]);
     } finally {
       setIsLoading(false);
     }
