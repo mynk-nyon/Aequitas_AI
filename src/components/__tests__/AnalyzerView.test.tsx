@@ -25,7 +25,7 @@ describe('AnalyzerView', () => {
     fireEvent.click(button);
     
     await waitFor(() => {
-      expect(screen.getByText('Risk clause.')).toBeInTheDocument();
+      expect(screen.getByText(/"Risk clause\."/)).toBeInTheDocument();
       expect(screen.getByText('This is a risk.')).toBeInTheDocument();
       expect(screen.getByText('HIGH RISK')).toBeInTheDocument();
     });
