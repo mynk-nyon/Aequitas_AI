@@ -49,7 +49,7 @@ export default function AnalyzerView({ content }: { content: string }) {
             <strong className="font-semibold">Error:</strong> {error}
           </div>
         )}
-        {data?.findings.map((finding, idx) => (
+        {data?.findings.map((finding: RiskFinding, idx: number) => (
           <div key={idx} className="p-5 border border-l-4 rounded-r-lg space-y-2 bg-background/50 border-y-border/60 border-r-border/60"
                style={{ borderLeftColor: finding.severity === 'HIGH' ? '#ef4444' : finding.severity === 'MEDIUM' ? '#f59e0b' : '#3b82f6' }}>
             <div className="flex justify-between items-start">

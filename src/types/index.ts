@@ -7,6 +7,10 @@ export interface RiskFinding {
   category: string;
 }
 
+export interface AnalyzerResult {
+  findings: RiskFinding[];
+}
+
 export interface SimplifiedClause {
   original: string;
   simplified: string;
