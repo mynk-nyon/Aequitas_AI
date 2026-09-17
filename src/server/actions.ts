@@ -16,7 +16,7 @@ export async function simplifyText(content: string) {
   try {
     const validatedContent = inputSchema.parse(content);
     const { object } = await generateObject({
-      model: google('gemini-1.5-pro'),
+      model: google('gemini-1.5-flash'),
       system: LEGAL_GUARDRAIL + '\nYou are a plain-english legal translator. Translate complex legal text into an 8th-grade reading level while preserving core obligations. Identify and define hidden jargon.',
       prompt: `Analyze and simplify the following legal text:\n\n${validatedContent}`,
       schema: z.object({
@@ -41,7 +41,7 @@ export async function analyzeRisks(content: string) {
   try {
     const validatedContent = inputSchema.parse(content);
     const { object } = await generateObject({
-      model: google('gemini-1.5-pro'),
+      model: google('gemini-1.5-flash'),
       system: LEGAL_GUARDRAIL + '\nYou are a legal contract auditor. Audit the text for predatory terms: unilateral termination, automatic renewals, liability waivers, non-disparagement, and indemnification traps. Categorize findings by severity (LOW, MEDIUM, HIGH).',
       prompt: `Audit the following legal text for risks and obligations:\n\n${validatedContent}`,
       schema: z.object({
@@ -65,7 +65,7 @@ export async function compareDocuments(original: string, modified: string) {
     const validatedOriginal = inputSchema.parse(original);
     const validatedModified = inputSchema.parse(modified);
     const { object } = await generateObject({
-      model: google('gemini-1.5-pro'),
+      model: google('gemini-1.5-flash'),
       system: LEGAL_GUARDRAIL + '\nYou are a legal document comparator. Compare two versions of an agreement. Flag material discrepancies, removed protections, and introduced liabilities side by side.',
       prompt: `Compare these two documents.\n\nORIGINAL:\n${validatedOriginal}\n\nMODIFIED:\n${validatedModified}`,
       schema: z.object({
@@ -89,7 +89,7 @@ export async function generatePrepSheet(content: string) {
   try {
     const validatedContent = inputSchema.parse(content);
     const { object } = await generateObject({
-      model: google('gemini-1.5-pro'),
+      model: google('gemini-1.5-flash'),
       system: LEGAL_GUARDRAIL + '\nYou are a legal assistant helping a user prepare for an attorney consultation. Extract key facts, ambiguities, and generate 5-8 tactical questions for the user to ask a lawyer.',
       prompt: `Generate an attorney consultation prep sheet based on this document:\n\n${validatedContent}`,
       schema: z.object({
@@ -110,7 +110,7 @@ export async function askQuestion(content: string, question: string, history: { 
     const validatedContent = inputSchema.parse(content);
     const validatedQuestion = inputSchema.parse(question);
     const { text } = await generateText({
-      model: google('gemini-1.5-pro'),
+      model: google('gemini-1.5-flash'),
       system: LEGAL_GUARDRAIL + '\nYou are a helpful legal AI assistant. Answer questions strictly based on the provided document context.',
       prompt: `DOCUMENT CONTEXT:\n${validatedContent}\n\nChat History:\n${history.map(m => m.role + ': ' + m.content).join('\n')}\n\nUser: ${validatedQuestion}`
     });
