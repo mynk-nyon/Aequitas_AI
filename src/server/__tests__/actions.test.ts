@@ -9,9 +9,11 @@ jest.mock('@ai-sdk/google', () => ({
 }));
 
 describe('Server Actions Zod Validation', () => {
-  it('throws Zod error on oversized input', async () => {
+  it('returns error object on oversized input', async () => {
     const oversizedString = 'a'.repeat(40001);
-    await expect(simplifyText(oversizedString)).rejects.toThrow('Document exceeds maximum allowed length');
+    const result = await simplifyText(oversizedString);
+    expect(result).toHaveProperty('error');
+    expect((result as any).error).toContain('Document exceeds maximum allowed length');
   });
 
   it('validates successfully on valid input', async () => {
