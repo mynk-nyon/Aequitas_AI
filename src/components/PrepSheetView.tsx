@@ -15,7 +15,7 @@ export default function PrepSheetView({ content }: { content: string }) {
     setError(null);
     try {
       const result = await generatePrepSheet(content);
-      setData(result);
+      if (result && "error" in result) { setError(result.error); } else { setData(result); }
     } catch (e: any) {
       console.error(e);
       setError(e.message || "An error occurred generating the prep sheet.");

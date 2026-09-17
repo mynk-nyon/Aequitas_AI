@@ -17,7 +17,7 @@ export default function ComparatorView({ original, modified }: { original: strin
     setError(null);
     try {
       const result = await compareDocuments(original, modified);
-      setData(result);
+      if (result && "error" in result) { setError(result.error); } else { setData(result); }
     } catch (e: any) {
       console.error(e);
       setError(e.message || "An error occurred during comparison.");

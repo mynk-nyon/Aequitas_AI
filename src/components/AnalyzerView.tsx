@@ -17,7 +17,7 @@ export default function AnalyzerView({ content }: { content: string }) {
     setError(null);
     try {
       const result = await analyzeRisks(content);
-      setData(result as AnalyzerResult);
+      if (result && "error" in result) { setError(result.error); } else { setData(result as AnalyzerResult); }
     } catch (e: any) {
       console.error(e);
       setError(e.message || "An error occurred during analysis.");

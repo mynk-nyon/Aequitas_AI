@@ -16,7 +16,7 @@ export default function SimplifierView({ content }: { content: string }) {
     setError(null);
     try {
       const result = await simplifyText(content);
-      setData(result);
+      if (result && "error" in result) { setError(result.error); } else { setData(result); }
     } catch (e: any) {
       console.error(e);
       setError(e.message || "An error occurred during translation.");
